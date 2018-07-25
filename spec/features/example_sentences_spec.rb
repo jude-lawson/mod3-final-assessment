@@ -30,7 +30,7 @@ RSpec.describe 'Example Sentences' do
       click_button 'Submit'
 
       expect(current_path).to eq('/suggested-sentences')
-      expect(page).to have_cotent('Examples for using \'mindfulness\'')
+      expect(page).to have_content('Examples for using \'mindfulness\'')
       within('#suggested-sentences') do
         sentences.each do |sentence_data|
           expect(page).to have_content(sentence_data['text'])
