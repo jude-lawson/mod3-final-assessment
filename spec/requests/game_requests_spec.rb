@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Game Requests' do
+  let(:game_data) { File.read('spec/fixtures/game.json') }
+
   before :each do
     @josh = User.create(id: 1, name: "Josh")
     @sal = User.create(id: 2, name: "Sal")
 
-    @game = Game.create!(player_1: @josh, player_2: @sal)
+    @game = Game.create!(id: 1, player_1: @josh, player_2: @sal)
 
     @play_1 = @josh.plays.create(game: @game, word: "sal", score: 3)
     @play_2 = @josh.plays.create(game: @game, word: "zoo", score: 12)
@@ -13,7 +15,6 @@ RSpec.describe 'Game Requests' do
     @play_4 = @sal.plays.create(game: @game, word: "no", score: 2)
   end
 
-  let(:game_data) { File.read('spec/fixtures/game.json') }
 
   context '/api/v1/games/1' do
     it 'should return the game data for the specified game' do
