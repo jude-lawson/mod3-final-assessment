@@ -8,9 +8,19 @@ class SentencesController < ApplicationController
       request.headers['app_key'] = ENV['OXFORD_API_KEY'] 
     end
     binding.pry
-    # suggestions = 
+    suggestions = Suggestions.new(JSON.parse(response.body))
     # @suggestions = 
   end
 end
 
+class Suggestions
+  def initialize(response_data)
+    @data = response_data
+  end
 
+  def suggested_sentences
+    @data['results'][0]['lexicalEntries'][0]['sentences'].select do |sentence_data|
+      sentence_data['regions'].include?('north American')
+    end   
+  end
+end

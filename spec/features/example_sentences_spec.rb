@@ -22,6 +22,16 @@ RSpec.describe 'Example Sentences' do
     end
   }
 
+  before :each do
+    stub_request(:get, 'https://od-api.oxforddictionaries.com/api/v1/entries/en/mindfulness/sentences')
+      .with(headers: {
+        'Accept'=>'application/json',
+        'App-Id' => ENV['OXFORD_APP_ID'],
+        'App-Key' => ENV['OXFORD_API_KEY']
+      })
+      .to_return(status: 200, body: File.read('spec/fixtures/sentences.json'))
+  end
+
   context 'As a guest' do
     it 'should return suggested sentences when I enter a word' do
       visit '/'
