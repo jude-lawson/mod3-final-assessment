@@ -1,5 +1,5 @@
-%h1= "Examples for using '#{@word}'"
+%h1= "Examples for using '#{@presenter.word}'"
 
 %ul#suggested-sentences
-  -@suggestions.each do |suggestion|
+  -@presenter.sentence_suggestions.each do |suggestion|
     %li{"class" => 'suggestion', "data-region" => "#{suggestion.region}"}= suggestion.text
