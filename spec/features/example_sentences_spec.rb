@@ -46,8 +46,8 @@ RSpec.describe 'Example Sentences' do
           expect(page).to have_content(sentence_data['text'])
         end
 
-        page.find('.suggestion').each do |suggestion|
-          expect(suggestion).to have_css("li[data-region='North American']")
+        page.find_all('.suggestion').each do |suggestion|
+          expect(suggestion['data-region']).to eq('North American')
         end
       end
     end

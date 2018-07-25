@@ -2,4 +2,4 @@
 
 %ul#suggested-sentences
   -@suggestions.each do |suggestion|
-    %li= suggestion.text
+    %li{"class" => 'suggestion', "data-region" => "#{suggestion.region}"}= suggestion.text
