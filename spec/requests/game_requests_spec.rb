@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Game Requests' do
   let(:game_data) { File.read('spec/fixtures/game.json') }
+  let(:updated_game_data) { File.read('spec/fixtures/updated_game.json')}
 
   before :each do
     @josh = User.create(id: 1, name: "Josh")
@@ -33,11 +34,13 @@ RSpec.describe 'Game Requests' do
       it 'should respond with 201 Created Response and should update the score' do
         post '/api/v1/games/1/plays?user_id=1&word=at'
 
-        # require 'pry';binding.pry
 
+        response_data = JSON.parse(response.body)
+        expected_data = JSON.parse(updated_game_data)
+        
         expect(response.status).to eq(201)
         expect(response.message).to eq('Created')
-        
+        expect(response_data).to eq(expected_data)
       end
     end
   end
