@@ -3,6 +3,7 @@ class Api::V1::PlaysController < Api::V1::ApplicationController
     game = Game.find(params[:id])
     user = User.find(params[:user_id])
     user.plays.create!(game: game, word: params[:word])
-    render status: 201, json: game
+    
+    render status: 201, json: { 'message' => 'Play created!'}
   end
 end
