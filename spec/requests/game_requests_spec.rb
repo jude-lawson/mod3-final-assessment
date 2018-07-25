@@ -16,14 +16,29 @@ RSpec.describe 'Game Requests' do
   end
 
 
-  context '/api/v1/games/1' do
+  context 'GET /api/v1/games/1' do
     it 'should return the game data for the specified game' do
       get "/api/v1/games/#{@game.id}"
       # response_data = JSON.parse(response.body) 
       response_data = JSON.parse(response.body)
       expected_data = JSON.parse(game_data)
 
+      expect(response).to be_successful
       expect(response_data).to eq(expected_data)
+    end
+  end
+
+  context 'POST /api/v1/games/1/plays' do
+    describe 'with user_id=1 and word=at' do
+      it 'should respond with 201 Created Response and should update the score' do
+        post '/api/v1/games/1/plays?user_id=1&word=at'
+
+        # require 'pry';binding.pry
+
+        expect(response.status).to eq(201)
+        expect(response.message).to eq('Created')
+        
+      end
     end
   end
 end
